@@ -72,6 +72,7 @@ function parseMetrics(csv) {
 }
 
 const metrics = parseMetrics(rawMetrics);
+const assetPath = (path) => import.meta.env.BASE_URL + path;
 
 function formatValue(key, value) {
   if (key === 'model') return value;
@@ -256,8 +257,8 @@ function Leaderboard() {
 }
 function QualitativeComparison() {
   const figures = [
-    { src: '/assets/iso_r006.png', alt: 'Iso view Suboff qualitative comparison', caption: 'Iso-view qualitative comparison' },
-    { src: '/assets/bottom_r006.png', alt: 'Bottom view Suboff qualitative comparison', caption: 'Bottom-view qualitative comparison' },
+    { src: assetPath('assets/iso_r006.png'), alt: 'Iso view Suboff qualitative comparison', caption: 'Iso-view qualitative comparison' },
+    { src: assetPath('assets/bottom_r006.png'), alt: 'Bottom view Suboff qualitative comparison', caption: 'Bottom-view qualitative comparison' },
   ];
 
   return (
@@ -269,8 +270,8 @@ function QualitativeComparison() {
           </div>
           <figcaption>{figure.caption}</figcaption>
           <div className="legend-strip figure-legends">
-            <img src="/assets/color-bar.png" alt="Color scale" />
-            <img src="/assets/error-bar.png" alt="Error scale" />
+            <img src={assetPath('assets/color-bar.png')} alt="Color scale" />
+            <img src={assetPath('assets/error-bar.png')} alt="Error scale" />
           </div>
         </figure>
       ))}
