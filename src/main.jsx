@@ -41,8 +41,8 @@ const datasetTabs = [
   {
     id: 'suboff',
     label: 'Suboff',
-    title: 'Suboff demo benchmark',
-    body: 'Current demo data source. It includes model-level quantitative metrics and qualitative iso / bottom visual comparisons.',
+    title: 'Suboff benchmark',
+    body: 'A geometry-disjoint scientific machine learning dataset. Validation uses hull geometries that do not occur in training, measuring generalization to unseen configurations.',
   },
   {
     id: 'reserved-a',
@@ -103,7 +103,7 @@ function StatCard({ icon: Icon, label, value, note }) {
 function DatasetOverview() {
   const [activeTab, setActiveTab] = React.useState('suboff');
   const active = datasetTabs.find((tab) => tab.id === activeTab);
-  const bestError = bestBy('mean_relative_l2');
+  const isSuboff = active.id === 'suboff';
 
   return (
     <div className="dataset-tabs">
@@ -126,10 +126,10 @@ function DatasetOverview() {
           <p>{active.body}</p>
         </div>
         <div className="stats-grid compact">
-          <StatCard icon={Database} label="Dataset" value={active.label} note={active.id === 'suboff' ? 'Demo source' : 'Reserved'} />
-          <StatCard icon={Table2} label="Models" value={active.id === 'suboff' ? metrics.length : '-'} note="Compared entries" />
-          <StatCard icon={BarChart3} label="Metrics" value={active.id === 'suboff' ? '6' : '-'} note="Accuracy and efficiency" />
-          <StatCard icon={Medal} label="Best Relative L2" value={active.id === 'suboff' ? bestError.model : '-'} note={active.id === 'suboff' ? bestError.mean_relative_l2.toFixed(4) : 'Pending data'} />
+          <StatCard icon={Database} label="Samples" value={isSuboff ? '1,182' : '-'} note={isSuboff ? '948 train / 234 validation' : 'Reserved'} />
+          <StatCard icon={Table2} label="Geometries" value={isSuboff ? '197' : '-'} note={isSuboff ? '158 train / 39 validation' : 'Pending data'} />
+          <StatCard icon={BarChart3} label="Flow Conditions" value={isSuboff ? '6' : '-'} note={isSuboff ? 'Per geometry' : 'Pending data'} />
+          <StatCard icon={Medal} label="Split Strategy" value={isSuboff ? 'Geometry-disjoint' : '-'} note={isSuboff ? 'Zero geometry overlap' : 'Pending data'} />
         </div>
       </div>
     </div>
